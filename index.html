@@ -1,9 +1,40 @@
+<!DOCTYPE html>
 <html>
-<head>
-<!--   <script src="https://cdn.pagesense.io/js/yi4uyxu7/52f434a0c3564a10890fc437ff417788.js"></script> -->
-<link rel="stylesheet" type="text/css" href="mainpage.css" rel="preload" as="script">
-</head>
-<body>
-<div class="mydiv">Hai This is Div</div>
-</body>
+  <head>
+<script type="text/javascript">(function(w,s){var e=document.createElement("script");e.type="text/javascript";e.async=true;e.src="https://cdn.pagesense.io/js/yi4uyxu7/52f434a0c3564a10890fc437ff417788.js";var x=document.getElementsByTagName("script")[0];x.parentNode.insertBefore(e,x);})(window,"script");</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/optimal-select/4.0.1/optimal-select.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Dropdown Box Example</title>
+<style>
+.container {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+  }
+.select-box {
+width:100%
+  }
+</style>
+    
+<script>
+    function showOptions() {
+      var clickedElement = event.target;
+      var selector = optimalSelect(clickedElement);
+      console.log(selector);
+    }
+  </script>
+
+  </head>
+  <body>
+    <div class="container">
+    <select class="select-box" onclick="showOptions()">
+      <option id="option1" class="option-1-class">Option 1</option>
+      <option id="option2" class="option-2-class">Option 2</option>
+      <option id="option3" class="option-3-class">Option 3</option>
+      <option id="option4" class="option-4-class">Option 4</option>
+      <option id="option5" class="option-5-class">Option 5</option>
+    </select>
+    </div>
+  </body>
 </html>
