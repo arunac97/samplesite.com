@@ -18,11 +18,13 @@ width:100%
 </style>
     
 <script>
-    function showOptions() {
-      var clickedElement = event.target;
-      var selector = optimalSelect(clickedElement);
-      console.log(selector);
-    }
+    window.onload = function() {
+        function showOptions() {
+          var clickedElement = event.target;
+          var selector = optimalSelect(clickedElement);
+          console.log(selector);
+        }
+      };
   </script>
 
   </head>
