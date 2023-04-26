@@ -20,7 +20,20 @@ width:100%
 <script>
     function showOptions() {
       var clickedElement = event.target;
-      var selector = OptimalSelect.select(clickedElement);
+       const options = {
+            priority: ['id', 'class'], // NO I18N
+            ignore: {
+                attribute(name, value, defaultPredicate) {
+
+                    if (!(/id|class/).test(name)) {
+                        return true;
+                    }
+
+                    return (/data-*/).test(name) || defaultPredicate(name, value);
+                }
+            }
+        };
+      var selector = OptimalSelect.select(clickedElement,options);
       console.log(selector);
     }
   </script>
