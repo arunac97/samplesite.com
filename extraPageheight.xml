@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Love and War</title>
+  <style>
+    .label_tag{
+      margin: 5px;
+      padding: 5px;
+      text-align: center;
+    }
+  </style>
+	<script>
+		window.onload = function() {
+			var colors = ['#FFDAB9', '#ADD8E6', '#90EE90', '#FFC0CB', '#EE82EE', '#FFFFE0', '#B0C4DE', '#F5DEB3', '#FA8072', '#D3D3D3'];
+			var max_height = 20000;
+			var i = 0;
+			while (document.body.scrollHeight < max_height) {
+				var div = document.createElement("div");
+				div.style.backgroundColor = colors[i % colors.length];
+				div.style.height = "250px";
+				div.style.width = "50%";
+				div.style.margin = "auto";
+				div.style.display = "flex";
+				div.style.alignItems = "center";
+				div.style.justifyContent = "center";
+				div.setAttribute("id", "div_" + i);
+        div.innerHTML = "<div class = 'label_tag'>this is div number"+i+"</div>"  
+				div.innerHTML = div.innerHTML + "<p id='p1_" + i + "'>All's fair in love and war</p><p id='p2_" + i + "'>Love is a battlefield</p>";
+				document.body.appendChild(div);
+				i++;
+			}
+		};
+	</script>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #FFFFFF;
+			min-height: 100%;
+		}
+	</style>
+</head>
+<body>
+</body>
+</html>
