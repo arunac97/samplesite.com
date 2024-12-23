@@ -1,0 +1,112 @@
+<html>
+    <head>
+<script type="text/javascript">(function(w,s){var e=document.createElement("script");e.type="text/javascript";e.async=true;e.src="https://d2x98wp00fzbc2.cloudfront.net/js/arunorg/e4470ba33159485993e41f81a23b7982.js";var x=document.getElementsByTagName("script")[0];x.parentNode.insertBefore(e,x);})(window,"script");</script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                overflow-x: auto; /* Ensure horizontal scrolling */
+            }
+            .container {
+                display: flex;
+                flex-wrap: nowrap; /* Prevent wrapping on desktop */
+                gap: 30px;
+                justify-content: flex-start; /* Align items to the left */
+                padding: 40px;
+            }
+            [class^="box-"] {
+                height: 250px;
+                width: 250px;
+                background-color: #bdbdbd;
+                flex-shrink: 0;
+                display: flex;
+            }
+            /* .box {
+                height: 250px;
+                width: 250px;
+                background-color: #bdbdbd;
+                flex-shrink: 0;
+                display: flex;
+            } */
+            .button {
+                margin: auto;
+                padding: 5px 10px;
+                border-radius: 10px;
+                background-color: cyan;
+            }
+            /* Tablet responsiveness */
+            @media (min-width: 510px) and (max-width: 1024px) {
+                .container {
+                    flex-wrap: wrap; /* Enable wrapping for smaller devices */
+                    width: auto; /* Adjust width dynamically */
+                }
+                /* .box {
+                    width: 40%;
+                } */
+                [class^="box-"] {
+                    width: 40%;
+                }
+            }
+            /* Mobile responsiveness */
+            @media only screen and (max-width: 550px) {
+                .container {
+                    flex-wrap: wrap; /* Enable wrapping */
+                    width: auto; /* Adjust width dynamically */
+                    gap:40px
+                }
+                /* .box {
+                    width: 100%;
+                } */
+                [class^="box-"] {
+                    width: 100%;
+                }
+            }
+        </style>
+        <script>
+            const borderColors = [
+                "#FF5733", // Vibrant Red-Orange
+                "#33FF57", // Lime Green
+                "#3357FF", // Bright Blue
+                "#FF33A8", // Hot Pink
+                "#FFC300", // Golden Yellow
+                "#8E44AD", // Deep Purple
+                "#16A085", // Teal Green
+                "#F39C12", // Orange-Yellow
+                "#C0392B", // Dark Red
+                "#3498DB"  // Sky Blue
+            ];
+            function createRowDiv(i) {
+                var containerDiv = document.createElement('div');
+                containerDiv.setAttribute('class','container');
+                containerDiv.setAttribute('id',`main-div-${i}`);
+                document.body.appendChild(containerDiv);
+                createDivAndButtonInaRow(i);
+            }
+            function createDivAndButtonInaRow(rowId) {
+                for(var i=1; i<=11; i++) {
+                    var color = borderColors[Math.ceil(Math.random() * 10)];
+                    var mainDiv = document.getElementById(`main-div-${rowId}`);
+                    var div = document.createElement('div');
+                    div.setAttribute('class', `box-${i}`);
+                    var buttonElement = document.createElement("button");
+                    buttonElement.setAttribute('class','button');
+                    buttonElement.setAttribute('id','button-i');
+                    buttonElement.textContent ='Click Me';
+                    div.appendChild(buttonElement);
+                    mainDiv.appendChild(div);
+                }
+            }
+            function onLoadFn() {
+                for(var i=1; i<=130; i++) {
+                    createRowDiv(i);
+                }
+                
+                
+            }
+            window.onload = onLoadFn; 
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
