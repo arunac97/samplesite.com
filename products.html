@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products - SampleSite</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f0f2f5; color: #333; }
+
+    .page-header {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      color: #fff; padding: 60px 20px 40px; text-align: center;
+    }
+    .page-header h1 { font-size: 36px; font-weight: 700; margin-bottom: 10px; }
+    .page-header p { font-size: 16px; color: #a8b2d1; max-width: 550px; margin: 0 auto; }
+
+    .toolbar {
+      max-width: 1200px; margin: 24px auto 0; padding: 0 20px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .result-count { font-size: 14px; color: #777; }
+    .filters { display: flex; gap: 10px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 8px 18px; border-radius: 20px; border: 1.5px solid #dde1e7;
+      background: #fff; font-size: 13px; font-weight: 500; cursor: pointer;
+      transition: all 0.2s; color: #555;
+    }
+    .filter-btn:hover, .filter-btn.active { border-color: #e94560; color: #e94560; background: rgba(233,69,96,0.04); }
+    .search-box {
+      padding: 10px 16px; border: 1.5px solid #dde1e7; border-radius: 8px;
+      font-size: 14px; width: 240px; background: #fff; font-family: inherit;
+    }
+    .search-box:focus { outline: none; border-color: #e94560; box-shadow: 0 0 0 3px rgba(233,69,96,0.1); }
+
+    .products-grid {
+      max-width: 1200px; margin: 24px auto 60px; padding: 0 20px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 24px;
+    }
+
+    .product-card {
+      background: #fff; border-radius: 14px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+
+    .product-img {
+      height: 190px; display: flex; align-items: center; justify-content: center;
+      font-size: 56px; position: relative;
+    }
+    .product-badge {
+      position: absolute; top: 14px; left: 14px; padding: 4px 12px;
+      border-radius: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+    }
+    .badge-new { background: #d4edda; color: #155724; }
+    .badge-sale { background: #fff3cd; color: #856404; }
+    .badge-hot { background: #f8d7da; color: #721c24; }
+
+    .product-body { padding: 20px; }
+    .product-category { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #e94560; font-weight: 600; margin-bottom: 6px; }
+    .product-name { font-size: 17px; font-weight: 600; color: #1a1a2e; margin-bottom: 6px; }
+    .product-desc { font-size: 13px; color: #777; line-height: 1.5; margin-bottom: 16px; }
+
+    .product-footer { display: flex; justify-content: space-between; align-items: center; }
+    .product-price { font-size: 20px; font-weight: 700; color: #1a1a2e; }
+    .product-price .old-price { font-size: 13px; color: #bbb; text-decoration: line-through; margin-right: 6px; font-weight: 400; }
+    .product-rating { font-size: 13px; color: #f5a623; }
+    .product-rating span { color: #999; margin-left: 4px; }
+
+    .add-btn {
+      display: block; width: 100%; margin-top: 14px; padding: 11px;
+      background: linear-gradient(135deg, #e94560, #c23152); color: #fff; border: none;
+      border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .add-btn:hover { box-shadow: 0 4px 16px rgba(233,69,96,0.3); transform: translateY(-1px); }
+
+    @media (max-width: 600px) {
+      .toolbar { flex-direction: column; align-items: stretch; }
+      .search-box { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <script src="nav.js"></script>
+
+  <div class="page-header">
+    <h1>Our Products</h1>
+    <p>Explore our full range of tools and solutions designed to help your business grow.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="result-count">Showing <strong>8</strong> products</div>
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterProducts('all', this)">All</button>
+      <button class="filter-btn" onclick="filterProducts('analytics', this)">Analytics</button>
+      <button class="filter-btn" onclick="filterProducts('automation', this)">Automation</button>
+      <button class="filter-btn" onclick="filterProducts('security', this)">Security</button>
+      <button class="filter-btn" onclick="filterProducts('integration', this)">Integration</button>
+    </div>
+    <input type="text" class="search-box" placeholder="Search products..." oninput="searchProducts(this.value)">
+  </div>
+
+  <div class="products-grid" id="productsGrid">
+
+    <div class="product-card" data-category="analytics" data-name="insight pro">
+      <div class="product-img" style="background:linear-gradient(135deg,#667eea,#764ba2);">
+        <span class="product-badge badge-hot">HOT</span>
+        &#128202;
+      </div>
+      <div class="product-body">
+        <div class="product-category">Analytics</div>
+        <div class="product-name">Insight Pro</div>
+        <div class="product-desc">Real-time analytics dashboard with custom reports, heatmaps, and user session recordings.</div>
+        <div class="product-footer">
+          <div class="product-price">$49<span style="font-size:13px;color:#888;font-weight:400">/mo</span></div>
+          <div class="product-rating">&#9733;&#9733;&#9733;&#9733;&#9733; <span>4.9</span></div>
+        </div>
+        <button class="add-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="automation" data-name="flow engine">
+      <div class="product-img" style="background:linear-gradient(135deg,#f093fb,#f5576c);">
+        <span class="product-badge badge-new">NEW</span>
+        &#9881;
+      </div>
+      <div class="product-body">
+        <div class="product-category">Automation</div>
+        <div class="product-name">Flow Engine</div>
+        <div class="product-desc">Automate repetitive tasks with visual workflow builder. Supports 200+ integrations.</div>
+        <div class="product-footer">
+          <div class="product-price">$39<span style="font-size:13px;color:#888;font-weight:400">/mo</span></div>
+          <div class="product-rating">&#9733;&#9733;&#9733;&#9733;&#9734; <span>4.6</span></div>
+        </div>
+        <button class="add-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="security" data-name="shield guard">
+      <div class="product-img" style="background:linear-gradient(135deg,#4facfe,#00f2fe);">
+        &#128737;
+      </div>
+      <div class="product-body">
+        <div class="product-category">Security</div>
+        <div class="product-name">Shield Guard</div>
+        <div class="product-desc">Enterprise-grade security suite with threat detection, SSL management, and compliance tools.</div>
+        <div class="product-footer">
+          <div class="product-price">$69<span style="font-size:13px;color:#888;font-weight:400">/mo</span></div>
+          <div class="product-rating">&#9733;&#9733;&#9733;&#9733;&#9733; <span>4.8</span></div>
+        </div>
+        <button class="add-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="integration" data-name="connect hub">
+      <div class="product-img" style="background:linear-gradient(135deg,#43e97b,#38f9d7);">
+        <span class="product-badge badge-sale">SALE</span>
+        &#128279;
+      </div>
+      <div class="product-body">
+        <div class="product-category">Integration</div>
+        <div class="product-name">Connect Hub</div>
+        <div class="product-desc">Seamless API gateway connecting your favorite tools. REST, GraphQL, and webhook support.</div>
+        <div class="product-footer">
+          <div class="product-price"><span class="old-price">$45</span>$29<span style="font-size:13px;color:#888;font-weight:400">/mo</span></div>
+          <div class="product-rating">&#9733;&#9733;&#9733;&#9733;&#9734; <span>4.5</span></div>
+        </div>
+        <button class="add-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="analytics" data-name="data lens">
+      <div class="product-img" style="background:linear-gradient(135deg,#fa709a,#fee140);">
+        &#128200;
+      </div>
+      <div class="product-body">
+        <div class="product-category">Analytics</div>
+        <div class="product-name">Data Lens</div>
+        <div class="product-desc">Advanced data visualization tool with drag-and-drop chart builder and export capabilities.</div>
+        <div class="product-footer">
+          <div class="product-price">$35<span style="font-size:13px;color:#888;font-weight:400">/mo</span></div>
+          <div class="product-rating">&#9733;&#9733;&#9733;&#9733;&#9733; <span>4.7</span></div>
+        </div>
+        <button class="add-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="automation" data-name="task pilot">
+      <div class="product-img" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb);">
+        <span class="product-badge badge-new">NEW</span>
+        &#128640;
+      </div>
+      <div class="product-body">
+        <div class="product-category">Automation</div>
+        <div class="product-name">Task Pilot</div>
+        <div class="product-desc">AI-powered task management with smart scheduling, auto-prioritization, and team insights.</div>
+        <div class="product-footer">
+          <div class="product-price">$25<span style="font-size:13px;color:#888;font-weight:400">/mo</span></div>
+          <div class="product-rating">&#9733;&#9733;&#9733;&#9733;&#9734; <span>4.4</span></div>
+        </div>
+        <button class="add-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="security" data-name="vault sync">
+      <div class="product-img" style="background:linear-gradient(135deg,#ffecd2,#fcb69f);">
+        &#128274;
+      </div>
+      <div class="product-body">
+        <div class="product-category">Security</div>
+        <div class="product-name">Vault Sync</div>
+        <div class="product-desc">Encrypted cloud storage with zero-knowledge architecture and cross-device sync.</div>
+        <div class="product-footer">
+          <div class="product-price">$19<span style="font-size:13px;color:#888;font-weight:400">/mo</span></div>
+          <div class="product-rating">&#9733;&#9733;&#9733;&#9733;&#9733; <span>4.9</span></div>
+        </div>
+        <button class="add-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="integration" data-name="sync bridge">
+      <div class="product-img" style="background:linear-gradient(135deg,#89f7fe,#66a6ff);">
+        &#128259;
+      </div>
+      <div class="product-body">
+        <div class="product-category">Integration</div>
+        <div class="product-name">Sync Bridge</div>
+        <div class="product-desc">Real-time data synchronization across databases, CRMs, and cloud platforms.</div>
+        <div class="product-footer">
+          <div class="product-price">$55<span style="font-size:13px;color:#888;font-weight:400">/mo</span></div>
+          <div class="product-rating">&#9733;&#9733;&#9733;&#9733;&#9734; <span>4.6</span></div>
+        </div>
+        <button class="add-btn">View Details</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function filterProducts(category, btn) {
+      document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var cards = document.querySelectorAll('.product-card');
+      var count = 0;
+      cards.forEach(function(card) {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = '';
+          count++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      document.querySelector('.result-count strong').textContent = count;
+    }
+    function searchProducts(query) {
+      var q = query.toLowerCase();
+      var cards = document.querySelectorAll('.product-card');
+      var count = 0;
+      cards.forEach(function(card) {
+        if (card.dataset.name.indexOf(q) !== -1 || card.dataset.category.indexOf(q) !== -1) {
+          card.style.display = '';
+          count++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      document.querySelector('.result-count strong').textContent = count;
+    }
+  </script>
+</body>
+</html>
